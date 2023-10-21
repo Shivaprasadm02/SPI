@@ -54,12 +54,12 @@ if(!uvm_config_db#(int)::get(null,get_full_name(),"int",ctrl1))
 	$display("ctrl done");
 	//divider 
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h16;});
+	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'hffff;});
 	finish_item(req);
 	$display("divider done");
 	//ss
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'h32;});
+	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'd32;});
 	finish_item(req);
 	$display("ss done");
 endtask
@@ -148,17 +148,18 @@ if(!uvm_config_db#(int)::get(null,get_full_name(),"int",ctrl1))
 	//ctrl
 	start_item(req);
 	assert(req.randomize() with {addr == 5'h10; we == 1'b1;din == ctrl1;});
+	$display("ctrl1 value is %b",ctrl1);
 	finish_item(req);
 
 	$display("ctrl done");
 	//divider 
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h16;});
+	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h00ff;});
 	finish_item(req);
 	$display("divider done");
 	//ss
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'h32;});
+	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'd120;});
 	finish_item(req);
 	$display("ss done");
 endtask
@@ -210,12 +211,12 @@ if(!uvm_config_db#(int)::get(null,get_full_name(),"int",ctrl1))
 	$display("ctrl done");
 	//divider 
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h16;});
+	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h0fff;});
 	finish_item(req);
 	$display("divider done");
 	//ss
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'h32;});
+	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'd190;});
 	finish_item(req);
 	$display("ss done");
 endtask
@@ -268,12 +269,12 @@ if(!uvm_config_db#(int)::get(null,get_full_name(),"int",ctrl1))
 	$display("ctrl done");
 	//divider 
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h16;});
+	assert(req.randomize() with {addr == 5'h14; we == 1'b1; din[31:16] == 16'h0; din[15:0] == 16'h000f;});
 	finish_item(req);
 	$display("divider done");
 	//ss
 	start_item(req);
-	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'h32;});
+	assert(req.randomize() with {addr == 5'h18; we == 1'b1; din[31:8] == 24'h0; din[7:0] == 8'd250;});
 	finish_item(req);
 	$display("ss done");
 endtask
