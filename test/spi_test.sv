@@ -93,6 +93,7 @@ endfunction
 function void build_phase(uvm_phase phase);
 	super.build_phase(phase);
 	ctrl[6:0] = 7'b0000000; //CHAR_LENGTH-128
+	//ctrl[6:0] = 7'b1111111;
 	ctrl[7] = 1'b0;  	//Reserved bit
 	ctrl[8] = 1'b1;  	//GO_BUSY 
 	ctrl[9] = 1'b1;  	//RX_NEG 
@@ -138,7 +139,8 @@ endfunction
 
 function void build_phase(uvm_phase phase);
 	super.build_phase(phase);
-	ctrl[6:0] = 7'b1110101; //CHAR_LENGTH-20
+	//ctrl[6:0] = 7'b1110101; //CHAR_LENGTH-20
+	ctrl[6:0] = 7'b0110000;
 	ctrl[7] = 1'b0;  	//Reserved bit
 	ctrl[8] = 1'b1;  	//GO_BUSY 
 	ctrl[9] = 1'b0;  	//RX_NEG 
@@ -185,6 +187,7 @@ endfunction
 function void build_phase(uvm_phase phase);
 	super.build_phase(phase);
 	ctrl[6:0] = 7'b1010111; //CHAR_LENGTH-40
+	//ctrl[6:0] =7'b0000000;
 	ctrl[7] = 1'b0;  	//Reserved bit
 	ctrl[8] = 1'b1;  	//GO_BUSY 
 	ctrl[9] = 1'b0;  	//RX_NEG 
@@ -213,5 +216,51 @@ endtask
 
 endclass
 
+///------------------------------------------------------------///
+///-----------------------testcase-4---------------------------///
+///------------------------------------------------------------///
+
+class testcase4 extends spi_base_test;
+
+	`uvm_component_utils(testcase4)
+
+	mas_vseq4 vs4;
+	int ctrl;
+
+function new(string name = "testcase4",uvm_component parent);
+	super.new(name,parent);
+endfunction 
+
+function void build_phase(uvm_phase phase);
+	super.build_phase(phase);
+	//ctrl[6:0] = 7'b1010111; //CHAR_LENGTH-40
+	ctrl[6:0] =7'b1111111;
+	ctrl[7] = 1'b0;  	//Reserved bit
+	ctrl[8] = 1'b1;  	//GO_BUSY 
+	ctrl[9] = 1'b0;  	//RX_NEG 
+	ctrl[10] = 1'b1;  	//TX_NEG 
+	ctrl[11] = 1'b0;  	//LSB 
+	ctrl[12] = 1'b1;  	//IE
+	ctrl[13] = 1'b1; 	//ASS
+	ctrl[31:14] = 18'b0;  	//Reserved
+
+	//setting the ctrl register data into configuration data
+	uvm_config_db #(int) :: set(this,"*","int",ctrl);	
+	$display("ctrl set in test4 : %p",ctrl);
+endfunction 
+
+task run_phase(uvm_phase phase);
+	//creating object for virtual sequence
+	$display("run started in test-4");
+	vs4 = mas_vseq4::type_id::create("vs4");	
+	phase.raise_objection(this);
+	//starting virtual sequence onto virtual sequencer
+	$display("starting vs4 on vseqr in test-4");
+	vs4.start(envh.v_seqrh);
+	phase.drop_objection(this);
+	$display("run ended in test-4");	
+endtask
+
+endclass
 
 
