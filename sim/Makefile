@@ -45,23 +45,23 @@ sv_cmp:
 	
 
 run_test:sv_cmp
-	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH1)  -wlf wave_file1.wlf -l test1.log  -sv_seed 18999329 work.top +UVM_TESTNAME=testcase1
+	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH1)  -wlf wave_file1.wlf -l test1.log  -sv_seed 2049000655 work.top +UVM_TESTNAME=testcase1
 	vcover report  -cvg  -details -nocompactcrossbins -codeAll -assert -directive -html mem_cov1
 
 run_test1:
-	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH2)  -wlf wave_file2.wlf -l test2.log  -sv_seed 46263187 work.top +UVM_TESTNAME=testcase2
+	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH2)  -wlf wave_file2.wlf -l test2.log  -sv_seed 3511590515 work.top +UVM_TESTNAME=testcase2
 	vcover report  -cvg  -details -nocompactcrossbins -codeAll -assert -directive -html mem_cov2
 
 run_test2:
-	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH3)  -wlf wave_file3.wlf -l test3.log  -sv_seed 1929500211  work.top +UVM_TESTNAME=testcase3
+	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH3)  -wlf wave_file3.wlf -l test3.log  -sv_seed 498849457 work.top +UVM_TESTNAME=testcase3
 	vcover report  -cvg  -details -nocompactcrossbins -codeAll -assert -directive -html mem_cov3
  
 run_test3:
-	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH4)  -wlf wave_file4.wlf -l test4.log  -sv_seed random  work.top +UVM_TESTNAME=testcase4
+	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH4)  -wlf wave_file4.wlf -l test4.log  -sv_seed random work.top +UVM_TESTNAME=testcase4
 	vcover report  -cvg  -details -nocompactcrossbins -codeAll -assert -directive -html mem_cov4
 
 run_test4:
-	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH5)  -wlf wave_file5.wlf -l test5.log  -sv_seed random  work.top +UVM_TESTNAME=testcase5
+	vsim -cvgperinstance $(VSIMOPT) $(VSIMCOV) $(VSIMBATCH5)  -wlf wave_file5.wlf -l test5.log  -sv_seed random work.top +UVM_TESTNAME=testcase5
 	vcover report  -cvg  -details -nocompactcrossbins -codeAll -assert -directive -html mem_cov5
 
 run_test5:
@@ -90,10 +90,10 @@ report:
 	vcover merge mem_cov mem_cov1 mem_cov2 mem_cov3 mem_cov4 mem_cov5 mem_cov6 
 	vcover report -cvg -details -nocompactcrossbins -codeAll -assert -directive -html mem_cov
 
-regress: clean run_test run_test2 report cov
+regress: clean run_test run_test1 run_test2 run_test3 report cov
 
 cov:
-	firefox covhtmlreport/index.html&
+	firefox covhtmlreport/index.html &
  
 clean:
 	rm -rf transcript* *log*  vsim.wlf fcover* covhtml* mem_cov* *.wlf modelsim.ini
