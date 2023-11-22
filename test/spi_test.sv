@@ -239,9 +239,9 @@ function void build_phase(uvm_phase phase);
 	ctrl[8] = 1'b1;  	//GO_BUSY 
 	ctrl[9] = 1'b0;  	//RX_NEG 
 	ctrl[10] = 1'b1;  	//TX_NEG 
-	ctrl[11] = 1'b0;  	//LSB 
+	ctrl[11] = 1'b1;  	//LSB 
 	ctrl[12] = 1'b1;  	//IE
-	ctrl[13] = 1'b1; 	//ASS
+	ctrl[13] = 1'b0; 	//ASS
 	ctrl[31:14] = 18'b0;  	//Reserved
 
 	//setting the ctrl register data into configuration data
