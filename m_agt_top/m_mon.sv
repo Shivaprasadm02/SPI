@@ -35,10 +35,12 @@ m_xtn m_data;
 m_data=m_xtn::type_id::create("m_data");
 //Initially waiting for 1 clock cycle
 @(vif.spi_m_mon_cb)
+$display("collect data started in master monitor");
 //waiting until ack signal is HIGH to collect data from DUT
 //while(vif.spi_m_mon_cb.wb_ack_o!=1)
-	wait(vif.spi_m_mon_cb.wb_ack_o)
-	@(vif.spi_m_mon_cb)
+wait(vif.spi_m_mon_cb.wb_ack_o)
+$display("got wb_ack in collect data  in master monitor");
+	//@(vif.spi_m_mon_cb)
 //First we have to sample we and addr signals based on which we store the din in corresponding registers
 	m_data.we=vif.spi_m_mon_cb.wb_we_i;
 	m_data.addr=vif.spi_m_mon_cb.wb_adr_i;
@@ -79,9 +81,13 @@ m_data=m_xtn::type_id::create("m_data");
 
 	else if(m_data.addr == 5'h18 && m_data.we == 1'b1)
 		m_data.ss = vif.spi_m_mon_cb.wb_dat_i;
-	end	
+	
+	end
+	//m_mon_port.write(m_data);
+	//$display("mdata=%p",m_data);
 `uvm_info("MASTER_MONITOR",$sformatf("Printing from Master Monitor : \n %s",m_data.sprint()),UVM_LOW)
-	m_mon_port.write(m_data);
+m_mon_port.write(m_data);
 $display("------pushed m_data to monport----");
+
 endtask
 endclass
